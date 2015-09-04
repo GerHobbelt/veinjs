@@ -75,21 +75,13 @@
         var self = this,
             si, sl;
 
-        if(!self.element) {
+        if(!self.element || !document.getElementById('vein')) {
             self.element = document.createElement('style');
             self.element.setAttribute('type', 'text/css');
             self.element.setAttribute('id', 'vein');
             document.getElementsByTagName('head')[0].appendChild(self.element);
 
-            // We have just appended our Stylesheet, - it's the last one in HEAD
-            // so we start from the end, and just in case, we would check backwards
-            // until we find the right one
-            for (si = document.styleSheets.length - 1; si >= 0; si--) {
-                if ((document.styleSheets[si].ownerNode || document.styleSheets[si].owningElement) === self.element) {
-                    self.stylesheet = document.styleSheets[si];
-                    break;
-                }
-            }
+            self.stylesheet = self.element.sheet;
         }
 
         return self.stylesheet;
